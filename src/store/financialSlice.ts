@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface FinancialData {
   quarter: string;
@@ -27,7 +27,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 23200,
     endingDebt: 23980,
     effectiveInterestRate: 2.1,
-    debtIssuanceRequirement: 780
+    debtIssuanceRequirement: 780,
   },
   {
     quarter: "Q2 2020",
@@ -37,7 +37,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 23980,
     endingDebt: 25565,
     effectiveInterestRate: 2.0,
-    debtIssuanceRequirement: 1585
+    debtIssuanceRequirement: 1585,
   },
   {
     quarter: "Q3 2020",
@@ -47,7 +47,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 25565,
     endingDebt: 26655,
     effectiveInterestRate: 1.9,
-    debtIssuanceRequirement: 1090
+    debtIssuanceRequirement: 1090,
   },
   {
     quarter: "Q4 2020",
@@ -57,7 +57,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 26655,
     endingDebt: 27250,
     effectiveInterestRate: 1.8,
-    debtIssuanceRequirement: 595
+    debtIssuanceRequirement: 595,
   },
   {
     quarter: "Q1 2021",
@@ -67,7 +67,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 27250,
     endingDebt: 28150,
     effectiveInterestRate: 1.9,
-    debtIssuanceRequirement: 900
+    debtIssuanceRequirement: 900,
   },
   {
     quarter: "Q2 2021",
@@ -77,7 +77,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 28150,
     endingDebt: 29060,
     effectiveInterestRate: 2.2,
-    debtIssuanceRequirement: 910
+    debtIssuanceRequirement: 910,
   },
   {
     quarter: "Q3 2021",
@@ -87,7 +87,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 29060,
     endingDebt: 29730,
     effectiveInterestRate: 2.4,
-    debtIssuanceRequirement: 670
+    debtIssuanceRequirement: 670,
   },
   {
     quarter: "Q4 2021",
@@ -97,7 +97,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 29730,
     endingDebt: 30160,
     effectiveInterestRate: 2.6,
-    debtIssuanceRequirement: 430
+    debtIssuanceRequirement: 430,
   },
   {
     quarter: "Q1 2022",
@@ -107,7 +107,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 30160,
     endingDebt: 31050,
     effectiveInterestRate: 2.8,
-    debtIssuanceRequirement: 890
+    debtIssuanceRequirement: 890,
   },
   {
     quarter: "Q2 2022",
@@ -117,7 +117,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 31050,
     endingDebt: 31900,
     effectiveInterestRate: 3.0,
-    debtIssuanceRequirement: 850
+    debtIssuanceRequirement: 850,
   },
   {
     quarter: "Q3 2022",
@@ -127,7 +127,7 @@ const mockData: FinancialData[] = [
     beginningDebt: 31900,
     endingDebt: 32765,
     effectiveInterestRate: 3.2,
-    debtIssuanceRequirement: 865
+    debtIssuanceRequirement: 865,
   },
   {
     quarter: "Q4 2022",
@@ -137,8 +137,8 @@ const mockData: FinancialData[] = [
     beginningDebt: 32765,
     endingDebt: 33645,
     effectiveInterestRate: 3.4,
-    debtIssuanceRequirement: 880
-  }
+    debtIssuanceRequirement: 880,
+  },
 ];
 
 const initialState: FinancialState = {
@@ -149,7 +149,7 @@ const initialState: FinancialState = {
 };
 
 const financialSlice = createSlice({
-  name: 'financial',
+  name: "financial",
   initialState,
   reducers: {
     setTimeSeriesData: (state, action: PayloadAction<FinancialData[]>) => {
@@ -164,5 +164,6 @@ const financialSlice = createSlice({
   },
 });
 
-export const { setTimeSeriesData, setCurrentDebt, setLoading } = financialSlice.actions;
+export const { setTimeSeriesData, setCurrentDebt, setLoading } =
+  financialSlice.actions;
 export default financialSlice.reducer;
