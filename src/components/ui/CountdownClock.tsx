@@ -189,9 +189,6 @@ const DigitalCountdownTimer: React.FC<CountdownTimerProps> = ({
         <h2 className="text-2xl lg:text-3xl font-bold text-red-400 font-mono mb-2 drop-shadow-lg">
           🚨 BANKRUPTCY COUNTDOWN 🚨
         </h2>
-        <p className="text-green-300/80 font-mono text-sm lg:text-base">
-          Years : Days : Hours : Minutes : Seconds : Milliseconds
-        </p>
       </div>
 
       <div className="flex justify-center space-x-4 mb-6">
@@ -216,23 +213,23 @@ const DigitalCountdownTimer: React.FC<CountdownTimerProps> = ({
       <div className="flex justify-center items-center space-x-2 lg:space-x-4 flex-wrap gap-2">
         {renderDigitPair(timeLeft.years, "YEARS")}
         
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold">:</div>
+        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
         
         {renderTripleDigit(timeLeft.days, "DAYS")}
         
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold">:</div>
+        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
         
         {renderDigitPair(timeLeft.hours, "HOURS")}
         
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold">:</div>
+        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
         
         {renderDigitPair(timeLeft.minutes, "MINUTES")}
         
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold">:</div>
+        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
         
         {renderDigitPair(timeLeft.seconds, "SECONDS")}
         
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold">:</div>
+        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
         
         {renderDigitPair(timeLeft.milliseconds, "MILLISEC")}
       </div>
