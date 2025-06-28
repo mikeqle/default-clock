@@ -4,16 +4,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, Pause, RotateCcw } from "lucide-react";
+import { getBankruptcyDate } from "@/utils/finance";
 
 interface FlipDigitProps {
   value: number;
 }
 
-interface CountdownTimerProps {
-  targetDate?: string;
-}
-
 const FlipDigit: React.FC<FlipDigitProps> = ({ value }) => {
+  
   const [displayValue, setDisplayValue] = useState(value);
   const [nextValue, setNextValue] = useState(value);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -88,9 +86,8 @@ const FlipDigit: React.FC<FlipDigitProps> = ({ value }) => {
   );
 };
 
-const DigitalCountdownTimer: React.FC<CountdownTimerProps> = ({
-  targetDate = "2062-01-01T00:00:00"
-}) => {
+const DigitalCountdownTimer: React.FC = () => {
+  const targetDate = getBankruptcyDate();
   const [timeLeft, setTimeLeft] = useState({
     years: 0,
     days: 0,
@@ -104,7 +101,7 @@ const DigitalCountdownTimer: React.FC<CountdownTimerProps> = ({
 
   const calculateTimeLeft = () => {
     const now = new Date().getTime();
-    const target = new Date(targetDate).getTime();
+    const target = targetDate.getTime();
     const difference = target - now;
 
     if (difference > 0) {
@@ -236,7 +233,7 @@ const DigitalCountdownTimer: React.FC<CountdownTimerProps> = ({
 
       <div className="text-center mt-4">
         <p className="text-green-300/60 font-mono text-xs">
-          Target Date: {new Date(targetDate).toLocaleString()}
+          Target Date: {targetDate.toLocaleString()}
         </p>
       </div>
     </Card>

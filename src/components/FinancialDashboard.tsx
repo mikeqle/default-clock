@@ -20,6 +20,10 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
+// ===============================
+// FINANCIAL DASHBOARD
+// ===============================
+
 const FinancialDashboard: React.FC = () => {
   const { timeSeriesData, currentDebt } = useSelector(
     (state: RootState) => state.financial
