@@ -21,6 +21,20 @@ const Footer: React.FC = () => (
             @mikedle_
           </a>
         </p>
+        <div className="mt-3 pt-2 border-t border-green-500/20">
+          <a
+            href="https://bolt.new/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block transition-all duration-200 hover:scale-105 hover:brightness-110"
+          >
+            <img
+              src="/logotext_poweredby_360w.png"
+              alt="Powered by Bolt"
+              className="h-6 mx-auto opacity-70 hover:opacity-100 transition-opacity duration-200"
+            />
+          </a>
+        </div>
       </div>
     </div>
   </footer>
