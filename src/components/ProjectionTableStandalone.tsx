@@ -104,7 +104,7 @@ const ProjectionTableStandalone: React.FC = () => {
             <Table className="min-w-full">
               <TableHeader>
                 <TableRow className="border-purple-500/30 hover:bg-purple-900/20">
-                  <TableHead className="text-purple-300 font-mono text-xs sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableHead className="text-purple-300 font-mono text-xs sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     (in billions)
                   </TableHead>
                   {projectionData.map((data) => (
@@ -128,7 +128,7 @@ const ProjectionTableStandalone: React.FC = () => {
               <TableBody>
                 {/* Outstanding Debt */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-cyan-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableCell className="text-cyan-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     <TooltipInfo text="Historical data based on data provided by US Department of the Treasury." sourceLink="https://fiscaldata.treasury.gov/datasets/historical-debt-outstanding/historical-debt-outstanding">
                       <span>Outstanding debt</span>
                     </TooltipInfo>
@@ -145,23 +145,7 @@ const ProjectionTableStandalone: React.FC = () => {
                   ))}
                 </TableRow>
 
-                {/* Delta Debt */}
-                <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-cyan-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
-                    Δ debt
-                  </TableCell>
-                  {projectionData.map((data) => (
-                    <TableCell 
-                      key={`delta-${data.year}`} 
-                      className={`font-mono text-xs text-center ${
-                        data.isHistorical ? 'text-blue-300' : 'text-cyan-300'
-                      }`}
-                    >
-                      {formatCurrency(data.deltaDebt)}
-                    </TableCell>
-                  ))}
-                </TableRow>
-
+            
                 {/* Empty Row */}
                 <TableRow>
                   <TableCell colSpan={projectionData.length + 1} className="h-4"></TableCell>
@@ -169,7 +153,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* Total Receipts */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-green-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableCell className="text-green-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     <TooltipInfo text="Historical data based on data provided by US Department of the Treasury." sourceLink="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/summary-of-receipts-outlays-and-the-deficit-surplus-of-the-u-s-government">
                       <span>Total receipts</span>
                     </TooltipInfo>
@@ -188,7 +172,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* YoY Increase % */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-green-400 font-mono text-xs italic sticky left-0 bg-gray-900/95 border-r border-purple-500/30 relative">
+                  <TableCell className="text-green-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     YoY increase %
                     {/* Highlight for projected assumptions */}
                     <div className="absolute -right-1 top-1/2 transform -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-green-400 to-green-600 rounded-full opacity-80"></div>
@@ -215,7 +199,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* Operating Expenses */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-yellow-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableCell className="text-yellow-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     Operating expenses (not incl. interests)
                   </TableCell>
                   {projectionData.map((data) => (
@@ -232,7 +216,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* YoY Increase % */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-yellow-400 font-mono text-xs italic sticky left-0 bg-gray-900/95 border-r border-purple-500/30 relative">
+                  <TableCell className="text-yellow-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     YoY increase %
                     {/* Highlight for projected assumptions */}
                     <div className="absolute -right-1 top-1/2 transform -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-yellow-400 to-yellow-600 rounded-full opacity-80"></div>
@@ -254,7 +238,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* Interest Expense */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-red-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableCell className="text-red-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     <TooltipInfo text="Historical interest expense data from Federal Reserve Economic Data (FRED)." sourceLink="https://fred.stlouisfed.org/series/FYOINT">
                       <span>Interest expense</span>
                     </TooltipInfo>
@@ -273,7 +257,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* Effective Interest Rate */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-red-400 font-mono text-xs italic sticky left-0 bg-gray-900/95 border-r border-purple-500/30 relative">
+                  <TableCell className="text-red-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     effective interest rate
                     {/* Highlight for projected assumptions */}
                     <div className="absolute -right-1 top-1/2 transform -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full opacity-80"></div>
@@ -300,7 +284,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* Total Expenses */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-red-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableCell className="text-red-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     <TooltipInfo text="Historical data based on data provided by US Department of the Treasury." sourceLink="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/summary-of-receipts-outlays-and-the-deficit-surplus-of-the-u-s-government">
                       <span>Total expenses</span>
                     </TooltipInfo>
@@ -324,7 +308,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* Interest % of Receipts */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-orange-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableCell className="text-orange-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     Interest % of receipts
                   </TableCell>
                   {projectionData.map((data) => (
@@ -345,7 +329,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* Borrowing Requirement */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-orange-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableCell className="text-orange-400 font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     Borrowing requirement
                   </TableCell>
                   {projectionData.map((data) => (
@@ -367,7 +351,7 @@ const ProjectionTableStandalone: React.FC = () => {
 
                 {/* Status Row */}
                 <TableRow className="border-purple-500/20 hover:bg-purple-900/10">
-                  <TableCell className="text-white font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30">
+                  <TableCell className="text-white font-mono text-xs font-bold sticky left-0 bg-gray-900/95 border-r border-purple-500/30 min-w-[180px] max-w-[220px]">
                     Safe if Interest &lt; Total receipts. Bankrupt if Interest &gt; Receipts
                   </TableCell>
                   {projectionData.map((data) => (

@@ -123,11 +123,6 @@ export const calculateProjectionData = (config: ProjectionConfig) => {
     const borrowingRequirement = Math.max(0, totalExpenses - totalReceipts);
     const interestPercentOfReceipts = (interestExpense / totalReceipts) * 100;
     const status = interestExpense >= totalReceipts ? "BANKRUPT" : "SAFE";
-    const deltaDebt: number = isHistorical
-      ? year > startYear
-        ? outstandingDebt - (data[data.length - 1]?.outstandingDebt || 0)
-        : 0
-      : borrowingRequirement;
     const receiptsYoY: number = isHistorical
       ? year > startYear
         ? (totalReceipts /
@@ -148,7 +143,6 @@ export const calculateProjectionData = (config: ProjectionConfig) => {
     data.push({
       year,
       outstandingDebt: Number(outstandingDebt.toFixed(3)),
-      deltaDebt: Number(deltaDebt.toFixed(3)),
       totalReceipts: Number(totalReceipts.toFixed(3)),
       receiptsYoY: Number(receiptsYoY.toFixed(3)),
       operatingExpenses: Number(operatingExpenses.toFixed(3)),
@@ -176,7 +170,6 @@ export const getBankruptcyDate = (): Date => {
 export interface FinancialYear {
   year: number;
   outstandingDebt: number; // in billions
-  deltaDebt: number; // in billions
   totalReceipts: number; // in billions
   receiptsYoY: number; // percent
   operatingExpenses: number; // in billions (not incl. interest)
@@ -239,7 +232,6 @@ export function projectFinancialYear(
   return {
     year: prev.year + 1,
     outstandingDebt,
-    deltaDebt,
     totalReceipts,
     receiptsYoY: config.receiptsYoY,
     operatingExpenses,
@@ -270,7 +262,6 @@ export function calculateBankruptcyDate(
     baseYear = {
       year: config.initialYear,
       outstandingDebt: config.initialOutstandingDebt,
-      deltaDebt: 0,
       totalReceipts: config.initialReceipts,
       receiptsYoY: config.receiptsYoY,
       operatingExpenses: config.initialOperatingExpenses,
