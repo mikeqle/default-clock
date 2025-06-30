@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
       <div className="flex items-center justify-center space-x-4 mb-4">
         <AlertTriangle className="h-10 w-10 text-red-500 animate-pulse" />
         <h1 className="text-3xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-yellow-400 to-red-600 font-mono">
-          US GOVERNMENT BANKRUPT CLOCK
+          US GOVERNMENT DEFAULT CLOCK
         </h1>
         <DollarSign className="h-10 w-10 text-green-500 animate-pulse" />
       </div>
