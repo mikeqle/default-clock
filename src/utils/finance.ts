@@ -199,9 +199,12 @@ export const calculateBankruptcyDateWithConfig = (
 };
 
 // Calculate detailed projection data for table display
-export const calculateProjectionData = (config: ProjectionConfig) => {
+export const calculateProjectionData = (
+  config: ProjectionConfig
+): { data: FinancialYear[]; bankruptcyDate: Date | null } => {
   const startYear = 2010;
   const endYear = 2100; // Show projections until 2100
+  let bankruptcyDate: Date | null = null;
 
   const data: FinancialYear[] = [];
 
@@ -281,10 +284,22 @@ export const calculateProjectionData = (config: ProjectionConfig) => {
       isHistorical,
     });
 
+    if (status === "BANKRUPT") {
+      // calculate bankruptcy date within the year
+      const monthsIntoYear = Math.min(
+        11,
+        Math.floor((interestExpense / totalReceipts - 1) * 12)
+      );
+      const remainingInterestExpense =
+        interestExpense - (monthsIntoYear * totalReceipts) / 12;
+      const dayIntoMonth = remainingInterestExpense / (totalReceipts / 365);
+      bankruptcyDate = new Date(year, monthsIntoYear, dayIntoMonth, 12, 22, 0);
+    }
+
     if (status === "BANKRUPT") break;
   }
 
-  return data;
+  return { data, bankruptcyDate };
 };
 
 // Function to project a single year (stub)

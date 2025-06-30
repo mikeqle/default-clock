@@ -62,7 +62,7 @@ const ProjectionTableStandalone: React.FC = () => {
   const { projectionConfig } = useSelector(
     (state: RootState) => state.financial
   );
-  const projectionData = calculateProjectionData(projectionConfig);
+  const { data: projectionData } = calculateProjectionData(projectionConfig);
 
   console.log(projectionData);
 

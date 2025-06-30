@@ -4,8 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Settings, RefreshCw } from "lucide-react";
-import { useDispatch } from "react-redux";
-import { updateProjectionConfig } from "@/store/financialSlice";
 
 interface ConfigurationPanelProps {
   onConfigChange: (config: ProjectionConfig) => void;

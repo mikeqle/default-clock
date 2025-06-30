@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { calculateProjectionData } from "@/utils/finance";
 
 export interface ProjectionConfig {
   longTermInterestRate: number;
@@ -148,15 +149,19 @@ const mockData: FinancialData[] = [
   },
 ];
 
+const defaultProjectionConfig: ProjectionConfig = {
+  longTermInterestRate: 3.04,
+  receiptsGrowthRate: 4.96,
+  expensesGrowthRate: 7.8,
+};
+
+const { bankruptcyDate: defaultBankruptcyDate } = calculateProjectionData(defaultProjectionConfig);
+
 const initialState: FinancialState = {
   timeSeriesData: mockData,
   currentDebt: 33645,
-  projectedBankruptcyDate: "2062-01-01T00:00:00",
-  projectionConfig: {
-    longTermInterestRate: 4.5,
-    receiptsGrowthRate: 2.8,
-    expensesGrowthRate: 3.2,
-  },
+  projectedBankruptcyDate: defaultBankruptcyDate ? defaultBankruptcyDate.toISOString() : "2100-01-01T00:00:00",
+  projectionConfig: defaultProjectionConfig,
   isLoading: false,
 };
 

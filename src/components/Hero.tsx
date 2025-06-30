@@ -1,18 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 import { AlertTriangle, DollarSign } from "lucide-react";
-import { calculateBankruptcyDateWithConfig } from "@/utils/finance";
 
 const Hero: React.FC = () => {
-  const { projectionConfig } = useSelector((state: RootState) => state.financial);
-  const bankruptcyDate = calculateBankruptcyDateWithConfig(projectionConfig);
-  const formattedDate = bankruptcyDate.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
   return (
     <section className="text-center mb-8">
       <div className="flex items-center justify-center space-x-4 mb-4">
@@ -25,13 +14,19 @@ const Hero: React.FC = () => {
       <h2 className="text-xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 font-mono mb-2">
         BANKRUPTCY TRACKER
       </h2>
-      <div className="mt-2 inline-block px-3 py-1 bg-red-900/30 border border-red-500/50 rounded-lg">
-        <p className="text-red-300 font-mono text-xs lg:text-sm">
-          ⚠️ PROJECTED BANKRUPTCY: {formattedDate} ⚠️
+      <div className="max-w-2xl mx-auto text-green-200/90 font-mono text-base lg:text-lg space-y-2 mb-2">
+        <p>
+          The historical data is sourced from the U.S. Treasury and Federal
+          Reserve Economic Data (FRED).
+        </p>
+        <p>
+          The data is simple math that assumes three inputs: interest rate,
+          receipts growth rate, and expenses (excluding interest) growth rate. The
+          data is projected out to 2100. If we make it to 2100, I assume we'll be okay.
         </p>
       </div>
     </section>
   );
 };
 
-export default Hero; 
+export default Hero;
