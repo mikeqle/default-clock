@@ -148,56 +148,6 @@ const historicalData: HistoricalYear[] = [
   },
 ];
 
-// Enhanced bankruptcy calculation with configurable parameters
-export const calculateBankruptcyDateWithConfig = (
-  config: ProjectionConfig
-): Date => {
-  const currentYear = new Date().getFullYear();
-  // Projection starts with current year. Get last year's data.
-  const lastYear = currentYear - 1;
-  // find in historical data the year that is closest to last year
-  const lastYearData = historicalData.find((h) => h.year === lastYear);
-  if (!lastYearData) {
-    throw new Error("Last year data not found");
-  }
-
-  const currentDebt = 33645; // billions
-  const currentReceipts = 4200; // billions (quarterly, so ~16.8T annually)
-  const currentExpenses = 4800; // billions (quarterly, so ~19.2T annually)
-
-  let debt = currentDebt * 4; // Convert to annual
-  let receipts = currentReceipts * 4; // Convert to annual
-  let expenses = currentExpenses * 4; // Convert to annual
-
-  for (let year = currentYear; year < currentYear + 100; year++) {
-    // Calculate interest expense
-    const interestExpense = debt * (config.longTermInterestRate / 100);
-
-    // Check if interest expense alone exceeds total receipts (bankruptcy condition)
-    if (interestExpense >= receipts) {
-      // Calculate more precise date within the year
-      const monthsIntoYear = Math.min(
-        11,
-        Math.floor((interestExpense / receipts - 1) * 12)
-      );
-      const dayIntoMonth = Math.floor(Math.random() * 28) + 1; // Random day for variation
-      return new Date(year, monthsIntoYear, dayIntoMonth, 12, 22, 0);
-    }
-
-    // Project next year
-    receipts *= 1 + config.receiptsGrowthRate / 100;
-    expenses *= 1 + config.expensesGrowthRate / 100;
-
-    // Add deficit to debt
-    const totalExpenses = expenses + interestExpense;
-    const deficit = Math.max(0, totalExpenses - receipts);
-    debt += deficit;
-  }
-
-  // Fallback if no bankruptcy found in 100 years
-  return new Date(currentYear + 100, 0, 1, 12, 22, 0);
-};
-
 // Calculate detailed projection data for table display
 export const calculateProjectionData = (
   config: ProjectionConfig
@@ -298,53 +248,10 @@ export const calculateProjectionData = (
 
     if (status === "BANKRUPT") break;
   }
-
+  if (!bankruptcyDate) {
+     bankruptcyDate = new Date();
+    bankruptcyDate.setFullYear(now.getFullYear() + 100);
+    bankruptcyDate.setHours(12, 22, 0, 0);
+  }
   return { data, bankruptcyDate };
 };
-
-// Function to project a single year (stub)
-// export function projectFinancialYear(
-//   prev: FinancialYear,
-//   config: ProjectionTableConfig
-// ): FinancialYear {
-//   // Project receipts and expenses
-//   const totalReceipts = prev.totalReceipts * (1 + config.receiptsYoY / 100);
-//   const operatingExpenses =
-//     prev.operatingExpenses * (1 + config.expensesYoY / 100);
-//   const effectiveInterestRate =
-//     prev.effectiveInterestRate * (1 + config.interestRateYoY / 100);
-
-//   // Interest expense
-//   const interestExpense = prev.outstandingDebt * (effectiveInterestRate / 100);
-
-//   // Total expenses
-//   const totalExpenses = operatingExpenses + interestExpense;
-
-//   // Borrowing requirement
-//   const borrowingRequirement = totalExpenses - totalReceipts;
-
-//   // Outstanding debt
-//   const outstandingDebt = prev.outstandingDebt + prev.borrowingRequirement;
-
-//   // Interest % of receipts
-//   const interestPercentOfReceipts = (interestExpense / totalReceipts) * 100;
-
-//   // Status
-//   const status = interestExpense < totalReceipts ? "SAFE" : "BANKRUPT";
-
-//   return {
-//     year: prev.year + 1,
-//     outstandingDebt,
-//     totalReceipts,
-//     receiptsYoY: config.receiptsYoY,
-//     operatingExpenses,
-//     expensesYoY: config.expensesYoY,
-//     interestExpense,
-//     effectiveInterestRate,
-//     totalExpenses,
-//     interestPercentOfReceipts,
-//     borrowingRequirement,
-//     status,
-//     isHistorical: prev.isHistorical,
-//   };
-// }
