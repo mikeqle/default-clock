@@ -106,7 +106,7 @@ const DigitalCountdownTimer: React.FC = () => {
 
   const calculateTimeLeft = () => {
     const now = new Date().getTime();
-    const target = targetDate.getTime();
+    const target = targetDate?.getTime() ?? 0;
     const difference = target - now;
 
     if (difference > 0) {
@@ -224,7 +224,7 @@ const DigitalCountdownTimer: React.FC = () => {
   };
 
   // Check if we're safe (bankruptcy date is 2100 or later)
-  const isSafe = targetDate.getFullYear() >= 2100;
+  const isSafe = !!targetDate && targetDate.getFullYear() >= 2100;
 
   return (
     <Card className="bg-gray-900/80 border-green-500/50 backdrop-blur-sm p-6 w-full shadow-2xl shadow-green-500/10">
@@ -281,7 +281,7 @@ const DigitalCountdownTimer: React.FC = () => {
 
       <div className="text-center mt-4">
         <p className="text-red-300/90 font-mono text-lg">
-          Projected Bankruptcy on {targetDate.toLocaleDateString()}
+          Projected Bankruptcy on {targetDate ? targetDate.toLocaleDateString() : "N/A"}
         </p>
       </div>
 
@@ -321,7 +321,7 @@ const DigitalCountdownTimer: React.FC = () => {
               <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
             </div>
             <div className="text-red-300 font-mono text-lg font-bold">
-              Bankruptcy projected for {targetDate.getFullYear()}
+              Bankruptcy projected for {targetDate ? targetDate.getFullYear() : "N/A"}
             </div>
             <div className="mt-3 pt-2 border-t border-red-500/30">
               <p className="text-red-300/70 font-mono text-xs">
