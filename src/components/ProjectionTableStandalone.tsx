@@ -52,6 +52,8 @@ const ProjectionTableStandalone: React.FC = () => {
   const { projectionConfig } = useSelector((state: RootState) => state.financial);
   const projectionData = calculateProjectionData(projectionConfig);
 
+  console.log(projectionData);
+
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "decimal",
