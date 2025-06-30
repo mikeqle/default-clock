@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect, useRef } from "react";
 import {
   Sheet,
   SheetContent,
@@ -19,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { TableIcon, Info, ChevronLeft, ChevronRight } from "lucide-react";
+import { TableIcon, Info } from "lucide-react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { calculateProjectionData } from "@/utils/finance";
@@ -27,48 +26,7 @@ import { calculateProjectionData } from "@/utils/finance";
 const ProjectionTable: React.FC = () => {
   const { projectionConfig } = useSelector((state: RootState) => state.financial);
   const projectionData = calculateProjectionData(projectionConfig);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to 2022 when component mounts or data changes
-  useEffect(() => {
-    const scrollToYear = () => {
-      if (scrollAreaRef.current) {
-        const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
-        if (scrollContainer) {
-          // Find the 2022 column index
-          const year2022Index = projectionData.findIndex(data => data.year === 2022);
-          if (year2022Index !== -1) {
-            // Each column is approximately 100px wide (min-w-[100px])
-            // Add some offset for the sticky first column
-            const scrollPosition = Math.max(0, (year2022Index * 100) - 200);
-            scrollContainer.scrollLeft = scrollPosition;
-          }
-        }
-      }
-    };
-
-    // Small delay to ensure the DOM is fully rendered
-    const timeoutId = setTimeout(scrollToYear, 100);
-    return () => clearTimeout(timeoutId);
-  }, [projectionData]);
-
-  const scrollLeft = () => {
-    if (scrollAreaRef.current) {
-      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
-      if (scrollContainer) {
-        scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
-      }
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollAreaRef.current) {
-      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
-      if (scrollContainer) {
-        scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
-      }
-    }
-  };
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "decimal",
@@ -155,51 +113,7 @@ const ProjectionTable: React.FC = () => {
             Year-by-year breakdown of projected government finances until bankruptcy
           </SheetDescription>
         </SheetHeader>
-        
-        {/* Scroll Controls */}
-        <div className="flex justify-center items-center space-x-4 mt-4 mb-2">
-          <TooltipProvider>
-            <Tooltip delayDuration={100}>
-              <TooltipTrigger asChild>
-                <Button
-                  onClick={scrollLeft}
-                  variant="outline"
-                  size="sm"
-                  className="bg-purple-700/50 hover:bg-purple-600 text-purple-200 border-purple-500/50 font-mono"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent className="bg-gray-800 border-purple-500/50 text-purple-100 font-mono text-xs">
-                <p>Scroll left to see earlier years</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          
-          <span className="text-purple-300/60 font-mono text-xs">
-            ← SCROLL TO NAVIGATE YEARS →
-          </span>
-          
-          <TooltipProvider>
-            <Tooltip delayDuration={100}>
-              <TooltipTrigger asChild>
-                <Button
-                  onClick={scrollRight}
-                  variant="outline"
-                  size="sm"
-                  className="bg-purple-700/50 hover:bg-purple-600 text-purple-200 border-purple-500/50 font-mono"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent className="bg-gray-800 border-purple-500/50 text-purple-100 font-mono text-xs">
-                <p>Scroll right to see later years</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-        
-        <ScrollArea ref={scrollAreaRef} className="h-full mt-6">
+        <ScrollArea className="h-full mt-6">
           <div className="overflow-x-auto" style={{ scrollbarWidth: 'auto' }}>
             <Table className="min-w-full">
               <TableHeader>
@@ -467,27 +381,6 @@ const ProjectionTable: React.FC = () => {
               </TableBody>
             </Table>
           </div>
-          {/* Force horizontal scrollbar visibility */}
-          <style jsx>{`
-            div[style*="scrollbar-width"] {
-              scrollbar-width: auto !important;
-            }
-            div[style*="scrollbar-width"]::-webkit-scrollbar {
-              height: 12px !important;
-              display: block !important;
-            }
-            div[style*="scrollbar-width"]::-webkit-scrollbar-track {
-              background: rgba(75, 85, 99, 0.3) !important;
-              border-radius: 6px !important;
-            }
-            div[style*="scrollbar-width"]::-webkit-scrollbar-thumb {
-              background: rgba(147, 51, 234, 0.6) !important;
-              border-radius: 6px !important;
-            }
-            div[style*="scrollbar-width"]::-webkit-scrollbar-thumb:hover {
-              background: rgba(147, 51, 234, 0.8) !important;
-            }
-          `}</style>
         </ScrollArea>
       </SheetContent>
     </Sheet>
