@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 import { AlertTriangle, DollarSign } from "lucide-react";
-import { getBankruptcyDate } from "@/utils/finance";
+import { calculateBankruptcyDateWithConfig } from "@/utils/finance";
 
 const Hero: React.FC = () => {
-  const bankruptcyDate = getBankruptcyDate();
+  const { projectionConfig } = useSelector((state: RootState) => state.financial);
+  const bankruptcyDate = calculateBankruptcyDateWithConfig(projectionConfig);
   const formattedDate = bankruptcyDate.toLocaleDateString(undefined, {
     year: "numeric",
     month: "long",

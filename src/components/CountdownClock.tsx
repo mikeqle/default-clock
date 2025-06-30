@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, Pause, RotateCcw } from "lucide-react";
-import { getBankruptcyDate } from "@/utils/finance";
+import { getBankruptcyDate, calculateBankruptcyDateWithConfig } from "@/utils/finance";
 
 interface FlipDigitProps {
   value: number;
@@ -87,7 +89,8 @@ const FlipDigit: React.FC<FlipDigitProps> = ({ value }) => {
 };
 
 const DigitalCountdownTimer: React.FC = () => {
-  const targetDate = getBankruptcyDate();
+  const { projectionConfig } = useSelector((state: RootState) => state.financial);
+  const [targetDate, setTargetDate] = useState(getBankruptcyDate());
   const [timeLeft, setTimeLeft] = useState({
     years: 0,
     days: 0,
@@ -98,6 +101,12 @@ const DigitalCountdownTimer: React.FC = () => {
   });
   const [isRunning, setIsRunning] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Update target date when projection config changes
+  useEffect(() => {
+    const newTargetDate = calculateBankruptcyDateWithConfig(projectionConfig);
+    setTargetDate(newTargetDate);
+  }, [projectionConfig]);
 
   const calculateTimeLeft = () => {
     const now = new Date().getTime();

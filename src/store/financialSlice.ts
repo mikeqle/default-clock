@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface ProjectionConfig {
+  longTermInterestRate: number;
+  receiptsGrowthRate: number;
+  expensesGrowthRate: number;
+}
+
 export interface FinancialData {
   quarter: string;
   collections: number;
@@ -15,6 +21,7 @@ interface FinancialState {
   timeSeriesData: FinancialData[];
   currentDebt: number;
   projectedBankruptcyDate: string;
+  projectionConfig: ProjectionConfig;
   isLoading: boolean;
 }
 
@@ -145,6 +152,11 @@ const initialState: FinancialState = {
   timeSeriesData: mockData,
   currentDebt: 33645,
   projectedBankruptcyDate: "2062-01-01T00:00:00",
+  projectionConfig: {
+    longTermInterestRate: 4.5,
+    receiptsGrowthRate: 2.8,
+    expensesGrowthRate: 3.2,
+  },
   isLoading: false,
 };
 
@@ -161,9 +173,12 @@ const financialSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    updateProjectionConfig: (state, action: PayloadAction<ProjectionConfig>) => {
+      state.projectionConfig = action.payload;
+    },
   },
 });
 
-export const { setTimeSeriesData, setCurrentDebt, setLoading } =
+export const { setTimeSeriesData, setCurrentDebt, setLoading, updateProjectionConfig } =
   financialSlice.actions;
 export default financialSlice.reducer;
