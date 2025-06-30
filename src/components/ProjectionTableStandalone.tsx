@@ -212,15 +212,12 @@ const ProjectionTableStandalone: React.FC = () => {
                 {projectionData.map((data) => (
                   <TableCell
                     key={`receipts-yoy-${data.year}`}
-                    className={`font-mono text-xs text-center relative ${
+                    className={`font-mono text-xs text-center ${
                       data.isHistorical
                         ? "text-blue-300/70"
-                        : "text-green-300/70 bg-green-900/20 border border-green-500/30"
+                        : "text-green-300 bg-green-900/10 border border-green-500/20"
                     }`}
                   >
-                    {!data.isHistorical && (
-                      <div className="absolute inset-0 bg-green-400/10 rounded animate-pulse"></div>
-                    )}
                     {formatPercentage(data.receiptsYoY)}
                   </TableCell>
                 ))}
@@ -260,15 +257,12 @@ const ProjectionTableStandalone: React.FC = () => {
                 {projectionData.map((data) => (
                   <TableCell
                     key={`expenses-yoy-${data.year}`}
-                    className={`font-mono text-xs text-center relative ${
+                    className={`font-mono text-xs text-center ${
                       data.isHistorical
                         ? "text-blue-300/70"
-                        : "text-yellow-300/70 bg-yellow-900/20 border border-yellow-500/30"
+                        : "text-yellow-300 bg-yellow-900/10 border border-yellow-500/20"
                     }`}
                   >
-                    {!data.isHistorical && (
-                      <div className="absolute inset-0 bg-yellow-400/10 rounded animate-pulse"></div>
-                    )}
                     {formatPercentage(data.expensesYoY)}
                   </TableCell>
                 ))}
@@ -306,15 +300,12 @@ const ProjectionTableStandalone: React.FC = () => {
                 {projectionData.map((data) => (
                   <TableCell
                     key={`rate-${data.year}`}
-                    className={`font-mono text-xs text-center font-bold relative ${
+                    className={`font-mono text-xs text-center font-bold ${
                       data.isHistorical
                         ? "text-blue-400"
-                        : "text-blue-300 bg-blue-900/20 border border-blue-500/30"
+                        : "text-blue-300 bg-blue-900/10 border border-blue-500/20"
                     }`}
                   >
-                    {!data.isHistorical && (
-                      <div className="absolute inset-0 bg-blue-400/10 rounded animate-pulse"></div>
-                    )}
                     {formatPercentage(data.effectiveInterestRate)}
                   </TableCell>
                 ))}

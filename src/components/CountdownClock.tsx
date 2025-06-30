@@ -287,31 +287,31 @@ const DigitalCountdownTimer: React.FC = () => {
 
       {isSafe && (
         <div className="text-center mt-6">
-        <div className="inline-block px-6 py-4 bg-green-900/30 border-2 border-green-500/50 rounded-lg backdrop-blur-sm shadow-lg">
-          <div className="flex items-center justify-center space-x-3 mb-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-            <h3 className="text-green-400 font-mono text-sm font-bold uppercase tracking-wider">
-              ✅ GOOD NEWS: WE ARE SAFE
-            </h3>
-            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-          </div>
-          <div className="text-green-300 font-mono text-lg font-bold">
-            At least until the 22nd century
-          </div>
-          <div className="text-green-300/80 font-mono text-sm mt-1">
-            (Year 2100 and beyond)
-          </div>
-          <div className="mt-3 pt-2 border-t border-green-500/30">
-            <p className="text-green-300/70 font-mono text-xs">
-              When total government receipts cannot cover interest expense.
-            </p>
+          <div className="inline-block px-6 py-4 bg-green-900/30 border-2 border-green-500/50 rounded-lg backdrop-blur-sm shadow-lg">
+            <div className="flex items-center justify-center space-x-3 mb-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <h3 className="text-green-400 font-mono text-sm font-bold uppercase tracking-wider">
+                ✅ GOOD NEWS: WE ARE SAFE
+              </h3>
+              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+            <div className="text-green-300 font-mono text-lg font-bold">
+              At least until the 22nd century
+            </div>
+            <div className="text-green-300/80 font-mono text-sm mt-1">
+              (Year 2100 and beyond)
+            </div>
+            <div className="mt-3 pt-2 border-t border-green-500/30">
+              <p className="text-green-300/70 font-mono text-xs">
+                When total government receipts cannot cover interest expense.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
       )}
 
       {!isSafe && (
-        <div className="text-center mt-6">
+        <div className="text-center mt-4">
           <div className="inline-block px-6 py-4 bg-red-900/30 border-2 border-red-500/50 rounded-lg backdrop-blur-sm shadow-lg">
             <div className="flex items-center justify-center space-x-3 mb-2">
               <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>

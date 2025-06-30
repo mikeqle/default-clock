@@ -3,7 +3,7 @@ import { AlertTriangle, DollarSign } from "lucide-react";
 
 const Hero: React.FC = () => {
   return (
-    <section className="text-center mb-8">
+    <section className="text-center">
       <div className="flex items-center justify-center space-x-4 mb-4">
         <AlertTriangle className="h-10 w-10 text-red-500 animate-pulse" />
         <h1 className="text-3xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-yellow-400 to-red-600 font-mono">
@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
       <h2 className="text-xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 font-mono mb-2">
         BANKRUPTCY TRACKER
       </h2>
-      <div className="max-w-2xl mx-auto text-green-200/90 font-mono text-base lg:text-lg space-y-2 mb-2">
+      <div className="max-w-2xl mx-auto text-green-200/90 font-mono text-sm lg:text-sm space-y-2">
         <p>
           The historical data is sourced from the U.S. Treasury and Federal
           Reserve Economic Data (FRED).

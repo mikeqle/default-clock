@@ -1,7 +1,7 @@
 import React from "react";
 
 const Footer: React.FC = () => (
-  <footer className="mt-12 text-center">
+  <footer className="mt-8 text-center">
     <div className="inline-block px-6 py-3 bg-gray-900/50 border border-green-500/30 rounded-lg backdrop-blur-sm">
       <p className="text-green-300/60 font-mono text-xs">
         Data includes quarterly collections, operational expenses, interest payments, and debt metrics
