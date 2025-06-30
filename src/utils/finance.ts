@@ -82,7 +82,7 @@ export const calculateProjectionData = (config: ProjectionConfig) => {
   
   for (let year = startYear; year <= endYear; year++) {
     let outstandingDebt, totalReceipts, operatingExpenses, effectiveInterestRate;
-    let isHistorical = year <= 2024;
+    const isHistorical = year <= 2024;
     
     if (isHistorical) {
       // Use historical data
@@ -186,7 +186,7 @@ export interface FinancialYear {
 }
 
 // Configurable parameters for projections
-export interface ProjectionConfig {
+export interface ProjectionTableConfig {
   initialYear: number;
   initialOutstandingDebt: number;
   initialReceipts: number;
@@ -201,7 +201,7 @@ export interface ProjectionConfig {
 // Function to project a single year (stub)
 export function projectFinancialYear(
   prev: FinancialYear,
-  config: ProjectionConfig
+  config: ProjectionTableConfig
 ): FinancialYear {
   // Project receipts and expenses
   const totalReceipts = prev.totalReceipts * (1 + config.receiptsYoY / 100);
