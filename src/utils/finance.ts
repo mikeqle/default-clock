@@ -217,11 +217,8 @@ export function projectFinancialYear(
   // Borrowing requirement
   const borrowingRequirement = totalExpenses - totalReceipts;
 
-  // Δ debt
-  const deltaDebt = borrowingRequirement > 0 ? borrowingRequirement : 0;
-
   // Outstanding debt
-  const outstandingDebt = prev.outstandingDebt + deltaDebt;
+  const outstandingDebt = prev.outstandingDebt + prev.borrowingRequirement;
 
   // Interest % of receipts
   const interestPercentOfReceipts = (interestExpense / totalReceipts) * 100;
@@ -244,63 +241,6 @@ export function projectFinancialYear(
     status,
     isHistorical: prev.isHistorical,
   };
-}
-
-// Function to run the projection until bankruptcy, allowing for historical data
-export function calculateBankruptcyDate(
-  config: ProjectionTableConfig,
-  historicalData: FinancialYear[] = []
-): FinancialYear[] {
-  const years: FinancialYear[] = [...historicalData];
-  let startYear: number;
-  let baseYear: FinancialYear;
-
-  if (historicalData.length > 0) {
-    baseYear = historicalData[historicalData.length - 1];
-    startYear = baseYear.year + 1;
-  } else {
-    baseYear = {
-      year: config.initialYear,
-      outstandingDebt: config.initialOutstandingDebt,
-      totalReceipts: config.initialReceipts,
-      receiptsYoY: config.receiptsYoY,
-      operatingExpenses: config.initialOperatingExpenses,
-      expensesYoY: config.expensesYoY,
-      interestExpense:
-        config.initialOutstandingDebt * (config.initialInterestRate / 100),
-      effectiveInterestRate: config.initialInterestRate,
-      totalExpenses:
-        config.initialOperatingExpenses +
-        config.initialOutstandingDebt * (config.initialInterestRate / 100),
-      interestPercentOfReceipts:
-        ((config.initialOutstandingDebt * (config.initialInterestRate / 100)) /
-          config.initialReceipts) *
-        100,
-      borrowingRequirement:
-        config.initialOperatingExpenses +
-        config.initialOutstandingDebt * (config.initialInterestRate / 100) -
-        config.initialReceipts,
-      status:
-        config.initialOutstandingDebt * (config.initialInterestRate / 100) <
-        config.initialReceipts
-          ? "SAFE"
-          : "BANKRUPT",
-      isHistorical: false,
-    };
-    startYear = config.initialYear;
-    years.push(baseYear);
-  }
-
-  for (let i = 1; i < config.projectionYears; i++) {
-    const prev = years[years.length - 1];
-    if (prev.status === "BANKRUPT") break;
-    // Only project if this year is not already in historical data
-    if (prev.year >= startYear) {
-      years.push(projectFinancialYear(prev, config));
-    }
-  }
-
-  return years;
 }
 
 // Add a type for historical data
