@@ -155,6 +155,7 @@ export const calculateProjectionData = (
   const startYear = 2010;
   const endYear = 2100; // Show projections until 2100
   let bankruptcyDate: Date | null = null;
+  let prevYear: FinancialYear | null = null;
 
   const data: FinancialYear[] = [];
 
@@ -183,7 +184,7 @@ export const calculateProjectionData = (
       }
     } else {
       // Project future years
-      const prevYear: FinancialYear = data[data.length - 1];
+      prevYear = data[data.length - 1];
       if (!prevYear) continue;
 
       totalReceipts =
@@ -235,24 +236,21 @@ export const calculateProjectionData = (
     });
 
     if (status === "BANKRUPT") {
-      // calculate bankruptcy date within the year
-      const monthsIntoYear = Math.min(
-        11,
-        Math.floor((interestExpense / totalReceipts - 1) * 12)
-      );
-      const remainingInterestExpense =
-        interestExpense - (monthsIntoYear * totalReceipts) / 12;
-      const dayIntoMonth = remainingInterestExpense / (totalReceipts / 365);
-      bankruptcyDate = new Date(year - 1, monthsIntoYear, dayIntoMonth);
+      if (!prevYear) continue;
+      const daysToBankruptcy =
+        ((100 - prevYear.interestPercentOfReceipts) /
+          (interestPercentOfReceipts - prevYear.interestPercentOfReceipts)) *
+        365;
+
+      bankruptcyDate = new Date(year, 1, 1);
+      bankruptcyDate.setDate(bankruptcyDate.getDate() + daysToBankruptcy);
     }
 
     if (status === "BANKRUPT") break;
   }
   if (!bankruptcyDate) {
-    const now = new Date();
     bankruptcyDate = new Date();
     bankruptcyDate.setFullYear(2100);
-
   }
   return { data, bankruptcyDate };
 };
