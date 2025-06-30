@@ -243,15 +243,16 @@ export const calculateProjectionData = (
       const remainingInterestExpense =
         interestExpense - (monthsIntoYear * totalReceipts) / 12;
       const dayIntoMonth = remainingInterestExpense / (totalReceipts / 365);
-      bankruptcyDate = new Date(year, monthsIntoYear, dayIntoMonth, 12, 22, 0);
+      bankruptcyDate = new Date(year - 1, monthsIntoYear, dayIntoMonth);
     }
 
     if (status === "BANKRUPT") break;
   }
   if (!bankruptcyDate) {
-     bankruptcyDate = new Date();
-    bankruptcyDate.setFullYear(now.getFullYear() + 100);
-    bankruptcyDate.setHours(12, 22, 0, 0);
+    const now = new Date();
+    bankruptcyDate = new Date();
+    bankruptcyDate.setFullYear(2100);
+
   }
   return { data, bankruptcyDate };
 };

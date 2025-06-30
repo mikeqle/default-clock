@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
           Reserve Economic Data (FRED).
         </p>
         <p>
-          The data is simple math that assumes three inputs: interest rate,
+          The projection is based on three going-forward inputs: interest rate,
           receipts growth rate, and expenses (excluding interest) growth rate. The
           data is projected out to 2100. If we make it to 2100, I assume we'll be okay.
         </p>

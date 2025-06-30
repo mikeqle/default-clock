@@ -79,11 +79,6 @@ const FlipDigit: React.FC<FlipDigitProps> = ({ value }) => {
         <div className="absolute bottom-1 left-1 right-1 h-px bg-gradient-to-r from-transparent via-green-600 to-transparent" />
         <div className="absolute top-1/2 left-1 right-1 h-px bg-green-700 transform -translate-y-1/2" />
       </div>
-
-      <div className="absolute top-1 left-1 w-1 h-1 bg-green-500 rounded-full opacity-60" />
-      <div className="absolute top-1 right-1 w-1 h-1 bg-green-500 rounded-full opacity-60" />
-      <div className="absolute bottom-1 left-1 w-1 h-1 bg-green-500 rounded-full opacity-60" />
-      <div className="absolute bottom-1 right-1 w-1 h-1 bg-green-500 rounded-full opacity-60" />
     </div>
   );
 };
@@ -182,6 +177,44 @@ const DigitalCountdownTimer: React.FC = () => {
     );
   };
 
+  const renderYears = (value: number, label: string) => {
+    if (value >= 100) {
+      // Show 3 digits for 100+ years
+      const hundreds = Math.floor(value / 100) % 10;
+      const tens = Math.floor(value / 10) % 10;
+      const ones = value % 10;
+
+      return (
+        <div className="flex flex-col items-center space-y-2">
+          <div className="flex items-center space-x-1">
+            <FlipDigit value={hundreds} />
+            <FlipDigit value={tens} />
+            <FlipDigit value={ones} />
+          </div>
+          <span className="text-green-400 font-mono text-sm font-bold uppercase tracking-wider">
+            {label}
+          </span>
+        </div>
+      );
+    } else {
+      // Show 2 digits for < 100 years
+      const tens = Math.floor(value / 10) % 10;
+      const ones = value % 10;
+
+      return (
+        <div className="flex flex-col items-center space-y-2">
+          <div className="flex items-center space-x-1">
+            <FlipDigit value={tens} />
+            <FlipDigit value={ones} />
+          </div>
+          <span className="text-green-400 font-mono text-sm font-bold uppercase tracking-wider">
+            {label}
+          </span>
+        </div>
+      );
+    }
+  };
+
   const toggleTimer = () => {
     setIsRunning(!isRunning);
   };
@@ -190,11 +223,16 @@ const DigitalCountdownTimer: React.FC = () => {
     setTimeLeft(calculateTimeLeft());
   };
 
+  // Check if we're safe (bankruptcy date is 2100 or later)
+  const isSafe = targetDate.getFullYear() >= 2100;
+
   return (
     <Card className="bg-gray-900/80 border-green-500/50 backdrop-blur-sm p-6 w-full shadow-2xl shadow-green-500/10">
       <div className="text-center mb-6">
-        <h2 className="text-2xl lg:text-3xl font-bold text-red-400 font-mono mb-2 drop-shadow-lg">
-          🚨 BANKRUPTCY COUNTDOWN 🚨
+        <h2 className={`text-2xl lg:text-3xl font-bold font-mono mb-2 drop-shadow-lg ${
+          isSafe ? 'text-green-400' : 'text-red-400'
+        }`}>
+          {isSafe ? '✅ SAFETY COUNTDOWN ✅' : '🚨 BANKRUPTCY COUNTDOWN 🚨'}
         </h2>
       </div>
 
@@ -218,7 +256,7 @@ const DigitalCountdownTimer: React.FC = () => {
       </div>
 
       <div className="flex justify-center items-center space-x-2 lg:space-x-4 flex-wrap gap-2">
-        {renderDigitPair(timeLeft.years, "YEARS")}
+        {renderYears(timeLeft.years, "YEARS")}
         
         <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
         
@@ -242,10 +280,57 @@ const DigitalCountdownTimer: React.FC = () => {
       </div>
 
       <div className="text-center mt-4">
-        <p className="text-green-300/60 font-mono text-xs">
-          Target Date: {targetDate.toLocaleString()}
+        <p className="text-red-300/90 font-mono text-lg">
+          Projected Bankruptcy on {targetDate.toLocaleDateString()}
         </p>
       </div>
+
+      {isSafe && (
+        <div className="text-center mt-6">
+        <div className="inline-block px-6 py-4 bg-green-900/30 border-2 border-green-500/50 rounded-lg backdrop-blur-sm shadow-lg">
+          <div className="flex items-center justify-center space-x-3 mb-2">
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <h3 className="text-green-400 font-mono text-sm font-bold uppercase tracking-wider">
+              ✅ GOOD NEWS: WE ARE SAFE
+            </h3>
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+          </div>
+          <div className="text-green-300 font-mono text-lg font-bold">
+            At least until the 22nd century
+          </div>
+          <div className="text-green-300/80 font-mono text-sm mt-1">
+            (Year 2100 and beyond)
+          </div>
+          <div className="mt-3 pt-2 border-t border-green-500/30">
+            <p className="text-green-300/70 font-mono text-xs">
+              When total government receipts cannot cover interest expense.
+            </p>
+          </div>
+        </div>
+      </div>
+      )}
+
+      {!isSafe && (
+        <div className="text-center mt-6">
+          <div className="inline-block px-6 py-4 bg-red-900/30 border-2 border-red-500/50 rounded-lg backdrop-blur-sm shadow-lg">
+            <div className="flex items-center justify-center space-x-3 mb-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+              <h3 className="text-red-400 font-mono text-sm font-bold uppercase tracking-wider">
+                ⚠️ CRITICAL WARNING
+              </h3>
+              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+            </div>
+            <div className="text-red-300 font-mono text-lg font-bold">
+              Bankruptcy projected for {targetDate.getFullYear()}
+            </div>
+            <div className="mt-3 pt-2 border-t border-red-500/30">
+              <p className="text-red-300/70 font-mono text-xs">
+                When total government receipts cannot cover interest expense.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </Card>
   );
 };
