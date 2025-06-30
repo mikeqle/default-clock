@@ -41,7 +41,7 @@ export const calculateBankruptcyDateWithConfig = (config: ProjectionConfig): Dat
 export const calculateProjectionData = (config: ProjectionConfig) => {
   const currentYear = new Date().getFullYear();
   const startYear = 2010;
-  const endYear = currentYear + 10; // Show 10 years into future
+  const endYear = 2100; // Show projections until 2100
   const totalYears = endYear - startYear + 1;
   
   // Historical data from 2010-2024 (in billions)

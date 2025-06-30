@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Settings, RefreshCw } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { updateProjectionConfig } from "@/store/financialSlice";
-import ProjectionTable from "@/components/ProjectionTable";
 
 interface ConfigurationPanelProps {
   onConfigChange: (config: ProjectionConfig) => void;
@@ -153,7 +152,6 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({ onConfigChange 
               <RefreshCw className="h-4 w-4 mr-2" />
               UPDATE PROJECTION
             </Button>
-            <ProjectionTable />
             <Button
               onClick={handleReset}
               variant="outline"
