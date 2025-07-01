@@ -256,27 +256,33 @@ const DigitalCountdownTimer: React.FC = () => {
       </div>
 
       <div className="flex justify-center items-center space-x-2 lg:space-x-4 flex-wrap gap-2">
-        {renderYears(timeLeft.years, "YEARS")}
-        
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
-        
-        {renderTripleDigit(timeLeft.days, "DAYS")}
-        
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
-        
-        {renderDigitPair(timeLeft.hours, "HOURS")}
-        
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
-        
-        {renderDigitPair(timeLeft.minutes, "MINUTES")}
-        
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
-        
-        {renderDigitPair(timeLeft.seconds, "SECONDS")}
-        
-        <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
-        
-        {renderDigitPair(timeLeft.milliseconds, "MILLISEC")}
+        <div className="flex flex-col items-center space-y-4">
+          {/* First row: Years, Days, Hours, Minutes */}
+          <div className="flex justify-center items-center space-x-2 lg:space-x-4">
+            {renderYears(timeLeft.years, "YEARS")}
+            
+            <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
+            
+            {renderTripleDigit(timeLeft.days, "DAYS")}
+            
+            <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
+            
+            {renderDigitPair(timeLeft.hours, "HOURS")}
+            
+            <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
+            
+            {renderDigitPair(timeLeft.minutes, "MINUTES")}
+          </div>
+          
+          {/* Second row: Seconds and Milliseconds */}
+          <div className="flex justify-center items-center space-x-2 lg:space-x-4">
+            {renderDigitPair(timeLeft.seconds, "SECONDS")}
+            
+            <div className="text-green-400 text-2xl lg:text-3xl font-mono font-bold flex items-center h-16">:</div>
+            
+            {renderDigitPair(timeLeft.milliseconds, "MILLISEC")}
+          </div>
+        </div>
       </div>
 
       <div className="text-center mt-4">
@@ -303,7 +309,7 @@ const DigitalCountdownTimer: React.FC = () => {
             </div>
             <div className="mt-3 pt-2 border-t border-green-500/30">
               <p className="text-green-300/70 font-mono text-xs">
-                When total government receipts cannot cover interest expense.
+                Total receipts fully cover interest payments for the foreseeable future.
               </p>
             </div>
           </div>
